@@ -1,0 +1,24 @@
+#ifndef DDCUI_QCONFIG_H
+#define DDCUI_QCONFIG_H
+
+// config.h template file, QMake version
+
+#define APPLY_CANCEL_FLAG "$$APPLY_CANCEL_FLAG"
+
+
+#if defined(APPLY_CANCEL_FLAG) && (APPLY_CANCEL_FLAG == 1)
+#define APPLY_CANCEL
+#endif
+
+#ifdef VERBOSE
+
+#ifdef APPLY_CANCEL
+#warning "APPLY_CANCEL IS defined"
+#else
+#warning "APPLY_CANCEL is NOT defined"
+#endif
+
+
+#endif
+
+#endif

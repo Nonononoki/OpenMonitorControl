@@ -1,0 +1,190 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH ddcui 1 "13 June 2020"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+
+.SH NAME
+ddcui \- GUI for ddcutil
+.SH SYNOPSIS
+\fBddcui\fP [\fIoptions\fP]
+
+
+.\" ALT USING .SY .OP
+.\" .SY
+.\" .OP \-abcde
+.\" .OP \-b busno
+.\" .OP \-d|--display dispno
+.\" command command-arguments
+.\" .YS
+
+
+.SH DESCRIPTION
+\fBddcui\fP provides a graphical user interface to a monitor's Virtual Control Panel (VCP).
+It uses the DDC/CI protocol on an I2C bus connected to the monitor. 
+Normally, the video driver for the monitor exposes one or more I2C buses as devices named /dev/i2c-n.
+
+Virtual Control Panel features are defined in the Monitor Control Command Set (MCCS). 
+Monitors implement some subset of these features.
+Each feature is identified using a single byte.  For example, feature x10 is the brightness control. 
+
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
+.\" respectively.
+
+
+.\" .B ddcutil
+.\" .I command 
+.\" .R [
+.\" .I command-arguments
+.\" .R ] [
+.\" .I options
+.\" .R ]
+
+
+.SH OPTIONS
+.PP
+.SS Options that change initial settings for the \fIFeature Selection\fP dialog:
+.PP
+.TQ
+.BI "--feature-set " "name" 
+Initial feature set to show.
+The most important are \fIMCCS\fP - all features defined in MCCS,
+\fIMANUFACTURER\fP - features in the manufacturer reserved range xe0..xff,
+\fICOLOR\fP - color related features.  For a complete list, use 
+the \fB--help\fP option.
+Unless \fB--custom-feature-set\fP is specified, the default is \fIMCCS\fP.
+
+.TQ
+.BI "--custom-feature-set " "(feature code..)"
+Explicitly specify the features to be shown.
+Features in the feature code list are specified as 2 byte hex numbers, with or without 
+leading "x" or trailing "h".  To specify more than one feature, separate the feature codes
+by commas or blanks, and enclose the entire list in quotation marks.  For example:
+.EX
+--custom-feature-set "10 x12 14h"
+.EE
+
+.TQ
+.B "--only-capabilities"
+Restrict features to those in the capabilities string.
+Applies when the feature set is \fIMCCS\fP, \fICOLOR\fP, or \fIMANUFACTURER\fP.
+
+.TQ
+.B "--all-capabilities"
+Always include features found in the capabilities string.
+Applies when the feature set is \fIMCCS\fP.
+
+.TQ
+.B "--show-unsupported"
+Display  unsupported features in the feature set.  Normally unsupported features are not shown.
+
+.PP
+.SS Option that changes initial settings for the \fINC Values Source\fP dialog.
+
+.TQ
+.BI "--nc-values-source " "MCCS|CAPABILITIES|BOTH"
+Source of values shown in the drop down menu for simple Non-Continuous features.
+
+.SS Option for initial display selection:
+.PP
+.TQ
+.BI "--model "    "model-name"
+Model name as specified in the monitor's EDID and shown on the toolbar.
+
+.SS
+Miscellaneous options:
+
+.TQ
+.B "--styles"
+List available Qt styles
+
+.TQ
+.BI "--style " "style-name"
+Select the Qt style to use
+
+.TQ
+.B "--version, -v"
+Report version information
+
+.TQ
+.B "--help"
+Get command line help.
+
+.PP
+.SS
+Options that are passed to the \fBddcutil\fP shared library. 
+These correspond to \fBddcutil\fP command line options of the same name. 
+
+.TQ
+.BI "--sleep-multiplier " "floating point number"
+Multiplication factor applied to the length of DDC mandated waits.
+
+.TQ
+.BI "--maxtries " "\(dqmax-read-tries, max-write-read-tries, max-multi-part-tries\(dq"
+Adjust the number of retries
+
+.TQ
+.B "--ddc"
+Report DDC protocol and data errors to the terminal.
+
+.TQ
+.B "--udf | --noudf"
+Enable User Defined Features.  Default is \fB--noudf\fP
+
+.TQ
+.BI "--trace " "trace-group-name"
+Trace all functions in a trace group.
+May be specified more than once.
+
+.TQ
+.BI "--trcfile " "simple-file-name"
+Trace all traceable functions in a file.
+May be specified more than once.
+
+.TQ
+.BI "--trcfunc " "function name"
+Trace a single function.
+May be specified more than once.
+
+.TQ
+.B "--timestamp | --ts"
+Prefix trace messages with timestamp
+
+.TQ
+.B "--thread-id | --tid"
+Prefix trace messages with thread id
+
+
+.SH STATUS CODES 
+
+Normally returns 0, returns 1 if failure.
+
+Using the \fB--help\fP option is regarded as success. 
+
+
+.SH SEE_ALSO
+ddcutil(1)
+.PP
+The project homepage: 
+.UR http://www.ddcutil.com
+.UE
+.TQ
+General \fBddcui\fP documentation:
+.UR http://www.ddcutil.com/ddcui_main
+.UE
+.TQ
+For detailed documentation of the command line options: 
+.UR http:\\www.ddcutil.com/ddcui_options
+.UE 
+
+
+.SH AUTHOR
+Sanford Rockowitz (rockowitz at minsoft dot com)
+.br
+Copyright 2019\-2020 Sanford Rockowitz
+
+
