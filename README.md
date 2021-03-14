@@ -16,4 +16,5 @@ Open new .pro file with QtCreator using the latest Qt5 version.
 ### License
 GPL-2.0 License 
 
-
+### Screenshots:
+<img src="https://raw.githubusercontent.com/Nonononoki/OpenMonitorControl/master/screenshots/screenshot1.png">
