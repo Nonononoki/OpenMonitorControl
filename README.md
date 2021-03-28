@@ -5,6 +5,10 @@ Forked from https://github.com/rockowitz/ddcui
 ### What is this?
 OpenMonitorControl is a graphical application for Linux to control your monitors using ddc. It is build using the Qt Framework.
 
+### How to use?
+1. Install libddcutil
+2. Start "ddcutil" as root
+
 ### How to build?
 1. Execute "cmake -B build"
 2. Execute "make" in the newly created build folder
